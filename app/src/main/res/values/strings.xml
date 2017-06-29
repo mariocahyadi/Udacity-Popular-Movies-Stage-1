@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="sort_popular">Sort by Most Popular</string>
+    <string name="sort_top_rated">Sort by Top Rated</string>
+
+    <string name="thumbnail_desc">Thumbnail</string>
+    <string name="movie_poster_desc">Movie Poster</string>
+
+    <string name="caption_movie_title">Title</string>
+    <string name="caption_movie_release_date">Release Date</string>
+    <string name="caption_movie_vote_average">Vote Average</string>
+    <string name="caption_movie_overview">Overview</string>
+
+    <string name="message_no_overview_found">No overview was found</string>
+    <string name="message_no_release_date_found">Not found</string>
+
+</resources>
