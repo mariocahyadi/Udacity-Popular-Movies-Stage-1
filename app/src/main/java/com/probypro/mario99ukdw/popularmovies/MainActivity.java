@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     final static String SORT_METHOD_KEY = "SORT_METHOD";
     final static String VAR_NAME_MOVIE_ARRAY_LIST = "movieArrayList";
+    final static String VAR_NAME_MOVIE_FIRST_VISIBLE_POSITION = "firstVisiblePosition";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +97,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle state) {
+        int firstVisiblePosition = movieListGridView.getFirstVisiblePosition();
+
         state.putParcelableArrayList(VAR_NAME_MOVIE_ARRAY_LIST, movieArrayList);
+        state.putInt(VAR_NAME_MOVIE_FIRST_VISIBLE_POSITION, firstVisiblePosition);
+
         Log.d(LOG_TAG, "onSaveInstanceState : movieArrayList is saved");
         super.onSaveInstanceState(state);
     }
@@ -108,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
         // Loading Saved data
         movieArrayList = savedInstanceState.getParcelableArrayList(VAR_NAME_MOVIE_ARRAY_LIST);
         loadMovieListToGridView(movieArrayList);
+
+        int firstVisiblePosition = savedInstanceState.getInt(VAR_NAME_MOVIE_FIRST_VISIBLE_POSITION);
+        movieListGridView.setSelection(firstVisiblePosition);
         Log.d(LOG_TAG, "onRestoreInstanceState : movieArrayList is restored");
     }
 
