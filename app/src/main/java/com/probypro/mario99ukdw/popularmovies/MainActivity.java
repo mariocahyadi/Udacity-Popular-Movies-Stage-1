@@ -75,6 +75,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
+
+        MenuItem sortPopularMenuItem = menu.findItem(R.id.action_sort_popular);
+        MenuItem sortTopRatedMenuItem = menu.findItem(R.id.action_sort_top_rated);
+
+        String sortMethod = getSortMethod();
+        sortPopularMenuItem.setVisible(sortMethod.compareTo(NetworkUtils.PARAM_SORT_POPULAR) != 0);
+        sortTopRatedMenuItem.setVisible(sortMethod.compareTo(NetworkUtils.PARAM_SORT_TOP_RATED) != 0);
+
         return true;
     }
 
@@ -97,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle state) {
+        // https://stackoverflow.com/questions/3014089/maintain-save-restore-scroll-position-when-returning-to-a-listview
         int firstVisiblePosition = movieListGridView.getFirstVisiblePosition();
 
         state.putParcelableArrayList(VAR_NAME_MOVIE_ARRAY_LIST, movieArrayList);
@@ -114,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         movieArrayList = savedInstanceState.getParcelableArrayList(VAR_NAME_MOVIE_ARRAY_LIST);
         loadMovieListToGridView(movieArrayList);
 
+        // https://stackoverflow.com/questions/3014089/maintain-save-restore-scroll-position-when-returning-to-a-listview
         int firstVisiblePosition = savedInstanceState.getInt(VAR_NAME_MOVIE_FIRST_VISIBLE_POSITION);
         movieListGridView.setSelection(firstVisiblePosition);
         Log.d(LOG_TAG, "onRestoreInstanceState : movieArrayList is restored");
@@ -136,6 +146,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(SORT_METHOD_KEY, sortMethod);
         editor.apply();
+
+        invalidateOptionsMenu();
     }
 
     /**
